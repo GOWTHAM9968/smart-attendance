@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="settings.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">MyCollege</h2>
+    <nav>
+      <a href="studentdsahboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="studentprofile.html"><span class="material-icons">person</span> Profile</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>⚙️ Settings</h1>
+    </header>
+
+    <section class="settings-container">
+      <!-- Account Settings -->
+      <div class="card">
+        <h3><span class="material-icons">manage_accounts</span> Account Settings</h3>
+        <form class="settings-form">
+          <label>Email</label>
+          <input type="email" id="email" value="student@example.com">
+
+          <label>Phone</label>
+          <input type="text" id="phone" value="+91-9876543210">
+
+          <label>Change Password</label>
+          <input type="password" id="password" placeholder="Enter new password">
+
+          <button type="button" class="btn-primary" onclick="saveAccountSettings()">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- Preferences -->
+      <div class="card">
+        <h3><span class="material-icons">tune</span> Preferences</h3>
+        <form class="settings-form">
+          <label>Theme</label>
+          <select id="theme">
+            <option>Light</option>
+            <option>Dark</option>
+          </select>
+
+          <label>Notifications</label>
+          <select id="notifications">
+            <option>Enabled</option>
+            <option>Disabled</option>
+          </select>
+
+          <button type="button" class="btn-secondary" onclick="savePreferences()">Save Preferences</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function logout() {
+      window.location.href = "college.html";
+    }
+
+    function saveAccountSettings() {
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      alert("Account updated!\nEmail: " + email + "\nPhone: " + phone);
+    }
+
+    function savePreferences() {
+      const theme = document.getElementById("theme").value;
+      const notifications = document.getElementById("notifications").value;
+      alert("Preferences saved!\nTheme: " + theme + "\nNotifications: " + notifications);
+    }
+  </script>
+</body>
+</html>

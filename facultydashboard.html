@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Dashboard</title>
+  <a href="Index.html">Logout</a>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <!-- Google Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">MyCollege</h2>
+    <nav>
+      <a href="facultyprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="faculty-timetable.html"><span class="material-icons">calendar_month</span> Time Table</a>
+      <a href="faculty-analysis.html"><span class="material-icons">punch_clock</span> My Attendance</a>
+      <a href="faculty-student-view.html"><span class="material-icons">data_exploration</span> Student Data</a>
+      <a href="facultyattendance.html"><span class="material-icons">data_usage</span> Student Attendance</a>
+      <a href="facultysettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Topbar -->
+    <header class="topbar">
+      <h1>Welcome</h1>
+    </header>
+
+    <!-- Dashboard Cards -->
+    <section class="grid">
+      <div class="card">
+        <h3>Your Info</h3>
+        <p><strong>Email:</strong> <span id="userEmail"></span></p>
+        <p><strong>College:</strong> <span id="userCollege"></span></p>
+      </div>
+
+      <div class="card">
+        <h3>Announcements</h3>
+        <ul>
+          <li>New semester starts from <b>October 1st</b></li>
+          <li>Library closed on <b>Sundays</b></li>
+          <li>Upcoming <b>Hackathon</b> registration open</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Quick Links</h3>
+        <p>
+          <a href="#">📘 View Courses</a> | 
+          <a href="#">📊 Check Attendance</a> | 
+          <a href="#">📂 Download Notes</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name") || "Student";
+    const email = params.get("email") || "Not provided";
+    const college = params.get("college") || "Unknown";
+
+    document.getElementById("userName").innerText = name;
+    document.getElementById("userEmail").innerText = email;
+    document.getElementById("userCollege").innerText = college;
+
+    function logout() {
+      window.location.href = "college.html";
+    }
+  </script>
+</body>
+</html>

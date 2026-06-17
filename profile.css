@@ -1,0 +1,143 @@
+/* Reset */
+body, h1, h2, p { margin: 0; padding: 0; }
+
+/* Layout */
+body {
+  display: flex;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: #f4f6f9;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #007bff;
+  color: white;
+  height: 100vh;
+  padding: 20px 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .logo {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.sidebar nav a,
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 6px 0;
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.sidebar nav a:hover,
+.logout-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.logout-btn {
+  margin-top: auto;
+  background: #dc3545;
+}
+.logout-btn:hover {
+  background: #b52a37;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 220px;
+  padding: 20px 30px;
+  flex: 1;
+}
+
+.topbar {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  margin-bottom: 25px;
+}
+
+/* Profile Card */
+.profile-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 600px;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-header .avatar {
+  font-size: 80px;
+  color: #007bff;
+}
+
+.profile-header h2 {
+  margin: 10px 0;
+  color: #333;
+}
+
+.profile-header p {
+  color: #666;
+}
+
+.profile-info {
+  margin: 20px 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+.btn-secondary:hover {
+  background: #545b62;
+}

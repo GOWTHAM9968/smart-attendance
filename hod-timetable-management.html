@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Timetable Management</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="hod-timetable.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">HOD</h2>
+    <nav>
+      <a href="hoddashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="hod-timetable-management.html" class="active"><span class="material-icons">schedule</span> Timetable Management</a>
+      <a href="hod-timetable-view.html" class="active"><span class="material-icons">table_chart</span> Timetable View</a>
+      <a href="hod-attendance.html"><span class="material-icons">event_note</span> Attendance</a>
+      <a href="hodprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="hodsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Topbar -->
+    <header class="topbar">
+      <h1>🏫 HOD Timetable Management</h1>
+    </header>
+
+    <!-- Classes Section -->
+    <section class="card">
+      <h3><span class="material-icons">class</span> Manage Classes</h3>
+      <form id="classForm" class="form-inline">
+        <input type="text" id="className" placeholder="Enter Class (e.g., CSE-A)" required>
+        <button type="button" class="btn-save" onclick="addClass()">Add</button>
+      </form>
+      <ul id="classList"></ul>
+    </section>
+
+    <!-- Subjects Section -->
+    <section class="card">
+      <h3><span class="material-icons">menu_book</span> Manage Subjects</h3>
+      <form id="subjectForm" class="form-inline">
+        <input type="text" id="subjectName" placeholder="Enter Subject" required>
+        <input type="text" id="semester" placeholder="Semester" required>
+        <select id="subjectClass">
+          <option value="">--Select Class--</option>
+        </select>
+        <button type="button" class="btn-save" onclick="addSubject()">Add</button>
+      </form>
+      <ul id="subjectList"></ul>
+    </section>
+
+    <!-- Faculty Section -->
+    <section class="card">
+      <h3><span class="material-icons">school</span> Manage Faculty</h3>
+      <form id="facultyForm" class="form-inline">
+        <input type="text" id="facultyName" placeholder="Faculty Name" required>
+        <select id="facultySubject">
+          <option value="">--Assign Subject--</option>
+        </select>
+        <button type="button" class="btn-save" onclick="addFaculty()">Add</button>
+      </form>
+      <ul id="facultyList"></ul>
+    </section>
+
+    <!-- Rooms Section -->
+    <section class="card">
+      <h3><span class="material-icons">meeting_room</span> Manage Rooms</h3>
+      <form id="roomForm" class="form-inline">
+        <input type="text" id="roomNo" placeholder="Room No. (e.g., 101)" required>
+        <button type="button" class="btn-save" onclick="addRoom()">Add</button>
+      </form>
+      <ul id="roomList"></ul>
+    </section>
+
+    <!-- Labs Section -->
+    <section class="card">
+      <h3><span class="material-icons">computer</span> Manage Labs</h3>
+      <form id="labForm" class="form-inline">
+        <input type="text" id="labName" placeholder="Lab Name (e.g., CS Lab-1)" required>
+        <button type="button" class="btn-save" onclick="addLab()">Add</button>
+      </form>
+      <ul id="labList"></ul>
+    </section>
+
+    <!-- Electives Section -->
+    <section class="card">
+      <h3><span class="material-icons">swap_horiz</span> Request Elective Faculty</h3>
+      <form id="electiveForm" class="form-inline">
+        <input type="text" id="electiveSubject" placeholder="Elective Subject" required>
+        <input type="text" id="requestedDept" placeholder="Request From Dept" required>
+        <button type="button" class="btn-save" onclick="addElective()">Request</button>
+      </form>
+      <ul id="electiveList"></ul>
+    </section>
+
+    <!-- Floating Add Button -->
+<div class="fab" onclick="openAddForm()">+</div>
+
+<!-- Modal for Adding New Entry -->
+<div id="addModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>Add New Entry</h3>
+    <form id="addEntryForm" class="form-inline">
+      <select id="entryType" required>
+        <option value="">--Select Type--</option>
+        <option value="class">Class</option>
+        <option value="subject">Subject</option>
+        <option value="faculty">Faculty</option>
+        <option value="room">Room</option>
+        <option value="lab">Lab</option>
+        <option value="elective">Elective Request</option>
+      </select>
+      <input type="text" id="entryName" placeholder="Enter Name / Subject / Room..." required>
+      <button type="button" onclick="addModalEntry()" class="btn-save">Add</button>
+    </form>
+  </div>
+</div>
+
+
+    <!-- Floating Add Button -->
+    <div class="fab" onclick="openAddForm()">+</div>
+  </main>
+
+  <!-- Script -->
+  <script>
+    // Save data to LocalStorage
+    function saveData(key, value) {
+      let data = JSON.parse(localStorage.getItem(key)) || [];
+      data.push(value);
+      localStorage.setItem(key, JSON.stringify(data));
+      renderData();
+    }
+
+    function deleteData(key, index) {
+      let data = JSON.parse(localStorage.getItem(key)) || [];
+      data.splice(index, 1);
+      localStorage.setItem(key, JSON.stringify(data));
+      renderData();
+    }
+
+    // Add Functions
+    function addClass() {
+      const name = document.getElementById("className").value;
+      if (name) saveData("classes", { name });
+      document.getElementById("classForm").reset();
+    }
+
+    function addSubject() {
+      const subject = document.getElementById("subjectName").value;
+      const semester = document.getElementById("semester").value;
+      const className = document.getElementById("subjectClass").value;
+      if (subject && semester && className) saveData("subjects", { subject, semester, className });
+      document.getElementById("subjectForm").reset();
+    }
+
+    function addFaculty() {
+      const name = document.getElementById("facultyName").value;
+      const subject = document.getElementById("facultySubject").value;
+      if (name && subject) saveData("faculty", { name, subject });
+      document.getElementById("facultyForm").reset();
+    }
+
+    function addRoom() {
+      const room = document.getElementById("roomNo").value;
+      if (room) saveData("rooms", { room });
+      document.getElementById("roomForm").reset();
+    }
+
+    function addLab() {
+      const lab = document.getElementById("labName").value;
+      if (lab) saveData("labs", { lab });
+      document.getElementById("labForm").reset();
+    }
+
+    function addElective() {
+      const subject = document.getElementById("electiveSubject").value;
+      const dept = document.getElementById("requestedDept").value;
+      if (subject && dept) saveData("electives", { subject, dept });
+      document.getElementById("electiveForm").reset();
+    }
+
+    // Render Data
+    function renderData() {
+      const classes = JSON.parse(localStorage.getItem("classes")) || [];
+      const subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+      const faculty = JSON.parse(localStorage.getItem("faculty")) || [];
+      const rooms = JSON.parse(localStorage.getItem("rooms")) || [];
+      const labs = JSON.parse(localStorage.getItem("labs")) || [];
+      const electives = JSON.parse(localStorage.getItem("electives")) || [];
+
+      document.getElementById("classList").innerHTML = classes.map((c, i) => `<li>${c.name} <button class="delete" onclick="deleteData('classes',${i})">Delete</button></li>`).join("");
+      document.getElementById("subjectList").innerHTML = subjects.map((s, i) => `<li>${s.subject} (Sem ${s.semester}, ${s.className}) <button class="delete" onclick="deleteData('subjects',${i})">Delete</button></li>`).join("");
+      document.getElementById("facultyList").innerHTML = faculty.map((f, i) => `<li>${f.name} - ${f.subject} <button class="delete" onclick="deleteData('faculty',${i})">Delete</button></li>`).join("");
+      document.getElementById("roomList").innerHTML = rooms.map((r, i) => `<li>${r.room} <button class="delete" onclick="deleteData('rooms',${i})">Delete</button></li>`).join("");
+      document.getElementById("labList").innerHTML = labs.map((l, i) => `<li>${l.lab} <button class="delete" onclick="deleteData('labs',${i})">Delete</button></li>`).join("");
+      document.getElementById("electiveList").innerHTML = electives.map((e, i) => `<li>${e.subject} (Request to: ${e.dept}) <button class="delete" onclick="deleteData('electives',${i})">Delete</button></li>`).join("");
+
+      // Update dropdowns
+      document.getElementById("subjectClass").innerHTML = `<option value="">--Select Class--</option>` + classes.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
+      document.getElementById("facultySubject").innerHTML = `<option value="">--Assign Subject--</option>` + subjects.map(s => `<option value="${s.subject}">${s.subject}</option>`).join("");
+    }
+
+    // Open Modal
+function openAddForm() {
+  document.getElementById("addModal").style.display = "block";
+}
+
+// Close Modal
+function closeModal() {
+  document.getElementById("addModal").style.display = "none";
+}
+
+// Add Entry from Modal
+function addModalEntry() {
+  const type = document.getElementById("entryType").value;
+  const name = document.getElementById("entryName").value.trim();
+
+  if(!type || !name) return alert("Please fill all fields");
+
+  switch(type){
+    case "class": saveData("classes", { name }); break;
+    case "subject": saveData("subjects", { subject: name, semester: "1", className: "N/A" }); break;
+    case "faculty": saveData("faculty", { name, subject: "N/A" }); break;
+    case "room": saveData("rooms", { room: name }); break;
+    case "lab": saveData("labs", { lab: name }); break;
+    case "elective": saveData("electives", { subject: name, dept: "N/A" }); break;
+  }
+
+  document.getElementById("addEntryForm").reset();
+  closeModal();
+}
+
+// Close modal if click outside
+window.onclick = function(event) {
+  if (event.target == document.getElementById("addModal")) {
+    closeModal();
+  }
+}
+
+
+
+    // Logout
+    function logout() {
+      window.location.href = "college.html";
+    }
+
+    window.onload = renderData;
+  </script>
+</body>
+</html>

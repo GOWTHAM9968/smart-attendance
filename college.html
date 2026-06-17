@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select College</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .college-box {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+                  0 10px 10px rgba(0,0,0,0.22);
+      padding: 40px;
+      max-width: 400px;
+      margin: 100px auto;
+      text-align: center;
+    }
+    .college-box h2 {
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+    .college-box select, .college-box button {
+      width: 100%;
+      margin: 10px 0;
+    }
+    .college-box select {
+      background: #eee;
+      border: none;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .college-box button {
+      border: none;
+      border-radius: 20px;
+      padding: 12px 45px;
+      background: #007bff;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .college-box button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="college-box">
+    <h2>Select Your College</h2>
+    <select id="collegeSelect">
+      <option value="">-- Choose College --</option>
+      <option value="ABC College">ABC College</option>
+      <option value="XYZ University">XYZ University</option>
+      <option value="LMN Institute">LMN Institute</option>
+    </select>
+    <button onclick="goToLogin()">Proceed</button>
+  </div>
+
+  <script>
+    function goToLogin() {
+      const college = document.getElementById("collegeSelect").value;
+      if (college) {
+        // Redirect to login page with college name in query param
+        window.location.href = `Index.html?college=${encodeURIComponent(college)}`;
+      } else {
+        alert("Please select a college.");
+      }
+    }
+  </script>
+</body>
+</html>

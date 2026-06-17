@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Timetable</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="timetable.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">Faculty</h2>
+    <nav>
+      <a href="facultydashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="faculty-timetable.html" class="active"><span class="material-icons">schedule</span> Time Table</a>
+      <a href="faculty-analysis.html"><span class="material-icons">event_note</span> Attendance</a>
+      <a href="facultyprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="facultysettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">  
+      <h1>📅 Faculty Timetable</h1>
+    </header>
+
+    <section class="card">
+      <h3><span class="material-icons">filter_alt</span> Select Class & Subject</h3>
+      <form id="timetableForm" class="form-inline">
+        <label for="classSelect">Class:</label>
+        <select id="classSelect" required>
+          <option value="">-- Select Class --</option>
+          <option value="CSE-A">CSE-A</option>
+          <option value="CSE-B">CSE-B</option>
+          <option value="ECE-A">ECE-A</option>
+          <option value="EEE-A">EEE-A</option>
+        </select>
+
+        <label for="subjectSelect">Subject:</label>
+        <select id="subjectSelect" required>
+          <option value="">-- Select Subject --</option>
+          <option value="Mathematics">Mathematics</option>
+          <option value="Physics">Physics</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="Computer Science">Computer Science</option>
+        </select>
+
+        <button type="button" onclick="showTimetable()">Show Timetable</button>
+      </form>
+    </section>
+
+    <!-- Timetable Display -->
+    <section class="card" id="timetableSection" style="display:none;">
+      <h3><span class="material-icons">calendar_month</span> Weekly Timetable</h3>
+      <div class="table-wrapper">
+        <table id="facultyTimetable">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Period</th>
+              <th>Time</th>
+              <th>Subject</th>
+              <th>Room No.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data will be filled dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Sample timetable data
+    const timetableData = {
+      "CSE-A": {
+        "Mathematics": [
+          { day: "Monday", period: 1, time: "09:00 – 10:00", room: "101" },
+          { day: "Wednesday", period: 2, time: "10:00 – 11:00", room: "101" }
+        ],
+        "Computer Science": [
+          { day: "Tuesday", period: 3, time: "11:15 – 12:15", room: "305" },
+          { day: "Friday", period: 4, time: "01:30 – 02:30", room: "305" }
+        ]
+      },
+      "ECE-A": {
+        "Physics": [
+          { day: "Monday", period: 2, time: "10:00 – 11:00", room: "202" },
+          { day: "Thursday", period: 3, time: "11:15 – 12:15", room: "202" }
+        ]
+      }
+    };
+
+    function showTimetable() {
+      const selectedClass = document.getElementById("classSelect").value;
+      const selectedSubject = document.getElementById("subjectSelect").value;
+      const tableBody = document.querySelector("#facultyTimetable tbody");
+      const timetableSection = document.getElementById("timetableSection");
+
+      tableBody.innerHTML = ""; // clear previous data
+
+      if (selectedClass && selectedSubject && timetableData[selectedClass]?.[selectedSubject]) {
+        timetableData[selectedClass][selectedSubject].forEach(entry => {
+          const row = `<tr>
+                        <td>${entry.day}</td>
+                        <td>${entry.period}</td>
+                        <td>${entry.time}</td>
+                        <td>${selectedSubject}</td>
+                        <td>${entry.room}</td>
+                      </tr>`;
+          tableBody.innerHTML += row;
+        });
+        timetableSection.style.display = "block";
+      } else {
+        tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">No timetable found for this selection</td></tr>`;
+        timetableSection.style.display = "block";
+      }
+    }
+
+    function logout() {
+      window.location.href = "college.html";
+    }
+  </script>
+</body>
+</html>

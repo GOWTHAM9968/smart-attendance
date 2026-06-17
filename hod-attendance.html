@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Attendance Management</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="hod-attendance.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">Dept. HOD</h2>
+    <nav>
+      <a href="hoddashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="hod-overall-attendance.html" class="active"><span class="material-icons">event_note</span>Overall</a>
+      <a href="hodsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>📊 Attendance Management (HOD)</h1>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('students')">👨‍🎓 Student Attendance</button>
+      <button class="tab-btn" onclick="showTab('faculty')">👨‍🏫 Faculty Attendance</button>
+    </div>
+
+    <!-- Student Attendance Section -->
+    <section id="students" class="tab-content active">
+      <div class="card">
+        <h3><span class="material-icons">groups</span> Student Attendance</h3>
+        <form class="filter-form">
+          <select>
+            <option>Select Year</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>4th Year</option>
+          </select>
+          <select>
+            <option>Select Section</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+          </select>
+          <button type="button" class="filter-btn">View</button>
+        </form>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Day-wise Attendance</th>
+                <th>Period-wise Attendance</th>
+                <th>Absent Log</th>
+                <th>Overall %</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>21CS001</td>
+                <td>Alice</td>
+                <td>90%</td>
+                <td>92%</td>
+                <td>2 Days</td>
+                <td class="present">91%</td>
+              </tr>
+              <tr>
+                <td>21CS002</td>
+                <td>Bob</td>
+                <td>85%</td>
+                <td>80%</td>
+                <td>5 Days</td>
+                <td class="absent">82%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Faculty Attendance Section -->
+    <section id="faculty" class="tab-content">
+      <div class="card">
+        <h3><span class="material-icons">person</span> Faculty Attendance</h3>
+        <form class="filter-form">
+          <select>
+            <option>Select Faculty</option>
+            <option>Prof. John</option>
+            <option>Prof. Mary</option>
+            <option>Prof. David</option>
+          </select>
+          <button type="button" class="filter-btn">View</button>
+        </form>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Faculty ID</th>
+                <th>Name</th>
+                <th>Day-wise Attendance</th>
+                <th>Absent Log</th>
+                <th>Overall %</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>F001</td>
+                <td>Prof. John</td>
+                <td>92%</td>
+                <td>1 Day</td>
+                <td class="present">92%</td>
+              </tr>
+              <tr>
+                <td>F002</td>
+                <td>Prof. Mary</td>
+                <td>88%</td>
+                <td>3 Days</td>
+                <td class="absent">88%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function logout() {
+      window.location.href = "college.html";
+    }
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

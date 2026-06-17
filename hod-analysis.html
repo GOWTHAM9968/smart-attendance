@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Attendance</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="faculty-analysis.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">Faculty</h2>
+    <nav>
+      <a href="hoddashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="hod-own-attendance.html" class="active"><span class="material-icons">event_note</span> My Attendance</a>
+      <a href="hodsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>📊 Head Of The Department Attendance</h1>
+    </header>
+
+    <!-- Summary Cards -->
+    <section class="summary-cards">
+      <div class="card">
+        <span class="material-icons">event_available</span>
+        <h3>Total Working Days</h3>
+        <p class="stat">95</p>
+      </div>
+      <div class="card">
+        <span class="material-icons">done_all</span>
+        <h3>Days Present</h3>
+        <p class="stat">88</p>
+      </div>
+      <div class="card">
+        <span class="material-icons">event_busy</span>
+        <h3>Days Absent</h3>
+        <p class="stat">7</p>
+      </div>
+      <div class="card">
+        <span class="material-icons">percent</span>
+        <h3>Overall %</h3>
+        <p class="stat present">92.63%</p>
+      </div>
+    </section>
+
+    <!-- Day-wise Attendance -->
+    <section class="card">
+      <h3><span class="material-icons">calendar_month</span> Day-wise Attendance</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025-09-01</td>
+              <td class="present">Present</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>2025-09-02</td>
+              <td class="absent">Absent</td>
+              <td>Medical Leave</td>
+            </tr>
+            <tr>
+              <td>2025-09-03</td>
+              <td class="present">Present</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Absent Log -->
+    <section class="card">
+      <h3><span class="material-icons">assignment_late</span> Absent Log</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025-09-02</td>
+              <td>Medical Leave</td>
+            </tr>
+            <tr>
+              <td>2025-08-15</td>
+              <td>Conference Duty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function logout() {
+      window.location.href = "college.html";
+    }
+  </script>
+</body>
+</html>

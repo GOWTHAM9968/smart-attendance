@@ -1,0 +1,26 @@
+.edit-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.edit-container h2 { margin-bottom: 20px; text-align: center; color: #007bff; }
+.edit-container label { display: block; margin-top: 10px; font-weight: bold; }
+.edit-container input, .edit-container select {
+  width: 100%; padding: 8px; margin-top: 5px;
+  border: 1px solid #ddd; border-radius: 6px;
+}
+.edit-btn {
+  background: #ffc107;
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: black;
+}
+.absent-log {
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
+}

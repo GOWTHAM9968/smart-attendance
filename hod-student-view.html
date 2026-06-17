@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Student Data View</title>
+  <link rel="stylesheet" href="faculty-student.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">HOD</h2>
+    <nav>
+      <a href="hoddashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="hod-student-add.html"><span class="material-icons">person_add</span> Add Student</a>
+      <a href="hod-student-view.html" class="active"><span class="material-icons">people</span> View Students</a>
+      <a href="hodprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="hodsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>👨‍🎓 View Students</h1>
+    </header>
+
+    <section class="card">
+      <h3><span class="material-icons">people</span> Student List</h3>
+      <button onclick="downloadCSV()" style="margin-bottom:10px;">📥 Download CSV</button>
+      <table id="studentTable">
+        <thead>
+          <tr>
+            <th>Reg No</th>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Year</th>
+            <th>Semester</th>
+            <th>Section</th>
+            <th>Student Phone</th>
+            <th>Parent Phone</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Student data populated here -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    function renderStudents(){
+      const students = JSON.parse(localStorage.getItem("students")) || [];
+      const tbody = document.querySelector('#studentTable tbody');
+      tbody.innerHTML = students.map(s => `
+        <tr>
+          <td>${s.regNo}</td>
+          <td>${s.name}</td>
+          <td>${s.course}</td>
+          <td>${s.courseYear}</td>
+          <td>${s.semester}</td>
+          <td>${s.section}</td>
+          <td>${s.studentPhone}</td>
+          <td>${s.parentPhone}</td>
+          <td>${s.address}</td>
+        </tr>
+      `).join('');
+    }
+
+    function downloadCSV(){
+      const students = JSON.parse(localStorage.getItem("students")) || [];
+      if(students.length === 0){ alert("No students to download!"); return; }
+
+      const header = ["Reg No","Name","Course","Year","Semester","Section","Student Phone","Parent Phone","Address"];
+      const rows = students.map(s => [s.regNo,s.name,s.course,s.courseYear,s.semester,s.section,s.studentPhone,s.parentPhone,s.address]);
+
+      let csvContent = "data:text/csv;charset=utf-8," 
+        + [header.join(","), ...rows.map(r=>r.join(","))].join("\n");
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "students.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    window.onload = renderStudents;
+    function logout(){ window.location.href="college.html"; }
+  </script>
+
+</body>
+</html>

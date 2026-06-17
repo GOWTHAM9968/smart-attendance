@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Student Data Management</title>
+  <link rel="stylesheet" href="faculty-student.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">HOD</h2>
+    <nav>
+      <a href="facultydashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="faculty-student-add.html" class="active"><span class="material-icons">person_add</span> Add Student</a>
+      <a href="faculty-student-view.html"><span class="material-icons">people</span> View Students</a>
+      <a href="facultyprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="facultysettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>➕ Add Student</h1>
+    </header>
+
+    <section class="card">
+      <h3><span class="material-icons">person_add</span> Student Details</h3>
+      <form id="studentForm" class="form-inline">
+        <input type="text" id="regNo" placeholder="Registration Number" required>
+        <input type="text" id="name" placeholder="Student Name" required>
+        <input type="text" id="course" placeholder="Course" required>
+        <input type="number" id="courseYear" placeholder="Course Year" required>
+        <input type="number" id="semester" placeholder="Course Semester" required>
+        <input type="text" id="section" placeholder="Class Section" required>
+        <input type="tel" id="studentPhone" placeholder="Student Phone" required>
+        <input type="tel" id="parentPhone" placeholder="Parent Phone" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <button type="button" onclick="addStudent()">Add Student</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    function addStudent(){
+      const student = {
+        regNo: document.getElementById("regNo").value,
+        name: document.getElementById("name").value,
+        course: document.getElementById("course").value,
+        courseYear: document.getElementById("courseYear").value,
+        semester: document.getElementById("semester").value,
+        section: document.getElementById("section").value,
+        studentPhone: document.getElementById("studentPhone").value,
+        parentPhone: document.getElementById("parentPhone").value,
+        address: document.getElementById("address").value
+      };
+
+      if(!student.regNo || !student.name) { alert("Registration No & Name required!"); return; }
+
+      let students = JSON.parse(localStorage.getItem("students")) || [];
+      students.push(student);
+      localStorage.setItem("students", JSON.stringify(students));
+
+      alert("Student added successfully!");
+      document.getElementById("studentForm").reset();
+    }
+
+    function logout(){ window.location.href="college.html"; }
+  </script>
+
+</body>
+</html>

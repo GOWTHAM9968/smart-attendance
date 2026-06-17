@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Timetable</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="timetable.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">Student</h2>
+    <nav>
+      <a href="studentdsahboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="studenttimetable.html" class="active"><span class="material-icons">schedule</span> Time Table</a>
+      <a href="studentattendance.html"><span class="material-icons">event_note</span> Attendance</a>
+      <a href="studentprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="studentsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>📅 Weekly Class Timetable</h1>
+    </header>
+
+    <!-- Timetable Table -->
+    <section class="card">
+      <h3><span class="material-icons">calendar_month</span> Monday – Saturday</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Period</th>
+              <th>Time</th>
+              <th>Subject</th>
+              <th>Room No.</th>
+              <th>Faculty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Example for Monday -->
+            <tr>
+              <td rowspan="5">Monday</td>
+              <td>1</td>
+              <td>09:00 – 10:00</td>
+              <td>Mathematics</td>
+              <td>101</td>
+              <td>Dr. Rao</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>10:00 – 11:00</td>
+              <td>Physics</td>
+              <td>202</td>
+              <td>Prof. Meena</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>11:15 – 12:15</td>
+              <td>Computer Science</td>
+              <td>305</td>
+              <td>Mr. Sharma</td>
+            </tr>
+            <!-- Lunch Break -->
+            <tr class="lunch-row">
+              <td colspan="5">🍴 Lunch Break (12:30 – 01:30)</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>01:30 – 02:30</td>
+              <td>English</td>
+              <td>108</td>
+              <td>Mrs. Priya</td>
+            </tr>
+
+            <!-- Repeat for Tuesday -->
+            <tr>
+              <td rowspan="5">Tuesday</td>
+              <td>1</td>
+              <td>09:00 – 10:00</td>
+              <td>Chemistry</td>
+              <td>204</td>
+              <td>Dr. Anil</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>10:00 – 11:00</td>
+              <td>Mathematics</td>
+              <td>101</td>
+              <td>Dr. Rao</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>11:15 – 12:15</td>
+              <td>Electronics</td>
+              <td>402</td>
+              <td>Prof. Lakshmi</td>
+            </tr>
+            <tr class="lunch-row">
+              <td colspan="5">🍴 Lunch Break (12:30 – 01:30)</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>01:30 – 02:30</td>
+              <td>English</td>
+              <td>108</td>
+              <td>Mrs. Priya</td>
+            </tr>
+            <tr>
+              <td rowspan="5">Wednesday</td>
+              <td>1</td>
+              <td>09:00 – 10:00</td>
+              <td>Chemistry</td>
+              <td>204</td>
+              <td>Dr. Anil</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>10:00 – 11:00</td>
+              <td>Mathematics</td>
+              <td>101</td>
+              <td>Dr. Rao</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>11:15 – 12:15</td>
+              <td>Electronics</td>
+              <td>402</td>
+              <td>Prof. Lakshmi</td>
+            </tr>
+            <tr class="lunch-row">
+              <td colspan="5">🍴 Lunch Break (12:30 – 01:30)</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>01:30 – 02:30</td>
+              <td>English</td>
+              <td>108</td>
+              <td>Mrs. Priya</td>
+            </tr>
+            <tr>
+              <td rowspan="5">Thursday</td>
+              <td>1</td>
+              <td>09:00 – 10:00</td>
+              <td>Chemistry</td>
+              <td>204</td>
+              <td>Dr. Anil</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>10:00 – 11:00</td>
+                <td>Mathematics</td>
+                <td>101</td>
+                <td>Dr. Rao</td>
+                </tr>
+                <tr>
+                <td>3</td>
+                <td>11:15 – 12:15</td>
+                <td>Electronics</td>
+                <td>402</td>
+                <td>Prof. Lakshmi</td>
+                </tr>
+                <tr class="lunch-row">
+                <td colspan="5">🍴 Lunch Break (12:30 – 01:30)</td
+                </tr>
+                <tr>
+                <td>4</td>
+                <td>01:30 – 02:30</td>
+                <td>English</td>
+                <td>108</td>
+                <td>Mrs. Priya</td>
+            </tr>
+            <tr>
+              <td rowspan="5">Friday</td>
+              <td>1</td>
+              <td>09:00 – 10:00</td>
+              <td>Chemistry</td>
+              <td>204</td>
+              <td>Dr. Anil</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>10:00 – 11:00</td>
+                <td>Mathematics</td>
+                <td>101</td>
+                <td>Dr. Rao</td>
+                </tr>
+                <tr>
+                <td>3</td>
+                <td>11:15 – 12:15</td>
+                <td>Electronics</td>
+                <td>402</td>
+                <td>Prof. Lakshmi</td>
+                </tr>
+                <tr class="lunch-row">
+                <td colspan="5">🍴 Lunch Break (12:30 – 01:30)</td>
+                </tr>
+                <tr>
+                <td>4</td>
+                <td>01:30 – 02:30</td>
+                <td>English</td>
+                <td>108</td>
+                <td>Mrs. Priya</td>
+            </tr>
+            <tr>
+              <td rowspan="5">Saturday</td>
+              <td>1</td>
+              <td>09:00 – 10:00</td>
+              <td>Chemistry</td>
+              <td>204</td>
+              <td>Dr. Anil</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>10:00 – 11:00</td>
+                <td>Mathematics</td>
+                <td>101</td>
+                <td>Dr. Rao</td>
+                </tr>
+                <tr>
+                <td>3</td>
+                <td>11:15 – 12:15</td>
+                <td>Electronics</td>
+                <td>402</td>
+                <td>Prof. Lakshmi</td>
+                </tr>
+                <tr class="lunch-row">
+                <td colspan="5">🍴 Lunch Break (12:30 – 01:30)</td>
+                </tr>
+                <tr>
+                <td>4</td>
+                <td>01:30 – 02:30</td>
+                <td>English</td>
+                <td>108</td>
+                <td>Mrs. Priya</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function logout() {
+      window.location.href = "college.html";
+    }
+  </script>
+</body>
+</html>

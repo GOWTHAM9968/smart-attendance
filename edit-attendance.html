@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Attendance</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="facultyattendance.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">MyCollege</h2>
+    <nav>
+      <a href="dashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="faculty-attendance.html" class="active"><span class="material-icons">event_note</span> Attendance</a>
+      <a href="settings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>✏️ Edit Attendance</h1>
+    </header>
+
+    <section class="attendance-container">
+      <div class="card">
+        <h3><span class="material-icons">edit</span> Attendance Details</h3>
+        <p><strong>Date:</strong> <span id="date"></span></p>
+        <p><strong>Subject:</strong> <span id="subject"></span></p>
+        <p><strong>Class:</strong> <span id="class"></span></p>
+      </div>
+
+      <div class="card">
+        <h3><span class="material-icons">people</span> Update Student Attendance</h3>
+        <form id="editAttendanceForm">
+          <table>
+            <thead>
+              <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="editStudentList"></tbody>
+          </table>
+          <button type="submit" class="save-btn">💾 Update Attendance</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function logout() {
+      window.location.href = "college.html";
+    }
+
+    // Dummy student list (same as in main attendance page)
+    const students = {
+      "CSE-A": [
+        { roll: "101", name: "Aarav Sharma" },
+        { roll: "102", name: "Sneha Patel" },
+        { roll: "103", name: "Rohan Kumar" }
+      ],
+      "CSE-B": [
+        { roll: "201", name: "Priya Verma" },
+        { roll: "202", name: "Aditya Singh" }
+      ]
+    };
+
+    // Parse query params
+    const params = new URLSearchParams(window.location.search);
+    const roll = params.get("roll") || "";
+    const date = params.get("date") || "21 Sept 2025";
+    const subject = params.get("subject") || "Maths";
+    const className = params.get("class") || "CSE-A";
+
+    document.getElementById("date").textContent = date;
+    document.getElementById("subject").textContent = subject;
+    document.getElementById("class").textContent = className;
+
+    // Render student list with pre-selected attendance
+    const editList = document.getElementById("editStudentList");
+    students[className].forEach(stu => {
+      let status = (stu.roll === roll) ? "Absent" : "Present"; // Example logic
+      editList.innerHTML += `
+        <tr>
+          <td>${stu.roll}</td>
+          <td>${stu.name}</td>
+          <td>
+            <select>
+              <option value="Present" ${status==="Present" ? "selected" : ""}>Present</option>
+              <option value="Absent" ${status==="Absent" ? "selected" : ""}>Absent</option>
+            </select>
+          </td>
+        </tr>
+      `;
+    });
+
+    // Save updated attendance
+    document.getElementById("editAttendanceForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Attendance updated successfully!");
+      window.location.href = "facultyattendance.html";
+    });
+  </script>
+</body>
+</html>

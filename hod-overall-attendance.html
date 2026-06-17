@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Overall Attendance</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="hod-overall-attendance.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">Dept. HOD</h2>
+    <nav>
+      <a href="hoddashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="hod-attendance.html"><span class="material-icons">event_note</span> Student & Faculty Attendance</a>
+      <a href="hod-overall-attendance.html" class="active"><span class="material-icons">bar_chart</span> My Attendance</a>
+      <a href="hodsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>📈 Overall Attendance Reports</h1>
+    </header>
+
+    <!-- Summary Cards -->
+    <section class="summary-cards">
+      <div class="card">
+        <span class="material-icons">groups</span>
+        <h3>Student Avg Attendance</h3>
+        <p class="stat">85%</p>
+      </div>
+      <div class="card">
+        <span class="material-icons">person</span>
+        <h3>Faculty Avg Attendance</h3>
+        <p class="stat">91%</p>
+      </div>
+      <div class="card">
+        <span class="material-icons">error</span>
+        <h3>Lowest Attendance</h3>
+        <p class="stat">72%</p>
+      </div>
+      <div class="card">
+        <span class="material-icons">emoji_events</span>
+        <h3>Highest Attendance</h3>
+        <p class="stat">98%</p>
+      </div>
+    </section>
+
+    <!-- Student Attendance Overview -->
+    <section class="card">
+      <h3><span class="material-icons">school</span> Student Attendance by Class/Section</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Section</th>
+              <th>Avg %</th>
+              <th>Best Student</th>
+              <th>Lowest Student</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2nd Year</td>
+              <td>A</td>
+              <td>86%</td>
+              <td>Alice (95%)</td>
+              <td>Bob (72%)</td>
+            </tr>
+            <tr>
+              <td>3rd Year</td>
+              <td>B</td>
+              <td>82%</td>
+              <td>John (91%)</td>
+              <td>Mary (75%)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Faculty Attendance Overview -->
+    <section class="card">
+      <h3><span class="material-icons">work</span> Faculty Attendance Summary</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Faculty ID</th>
+              <th>Name</th>
+              <th>Overall %</th>
+              <th>Absent Days</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>F001</td>
+              <td>Prof. John</td>
+              <td>94%</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>F002</td>
+              <td>Prof. Mary</td>
+              <td>89%</td>
+              <td>4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function logout() {
+      window.location.href = "college.html";
+    }
+  </script>
+</body>
+</html>

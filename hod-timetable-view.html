@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Timetable View</title>
+  <link rel="stylesheet" href="hod.css">
+  <link rel="stylesheet" href="hod-timetable-view.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">HOD</h2>
+    <nav>
+      <a href="hoddashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="hod-timetable-management.html"><span class="material-icons">schedule</span> Timetable Management</a>
+      <a href="hod-timetable-view.html" class="active"><span class="material-icons">table_chart</span> Timetable View</a>
+      <a href="hodprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="hodsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>📅 HOD Timetable Overview</h1>
+    </header>
+
+    <!-- Student Timetable -->
+    <section class="card">
+      <h3><span class="material-icons">school</span> Student Timetables</h3>
+      <table id="studentTimetable">
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Day</th>
+            <th>Period 1</th>
+            <th>Period 2</th>
+            <th>Period 3</th>
+            <th>Period 4</th>
+            <th>Period 5</th>
+            <th>Period 6</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Student timetable data here -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Faculty Timetable -->
+    <section class="card">
+      <h3><span class="material-icons">person</span> Faculty Timetables</h3>
+      <table id="facultyTimetable">
+        <thead>
+          <tr>
+            <th>Faculty Name</th>
+            <th>Department</th>
+            <th>Day</th>
+            <th>Period 1</th>
+            <th>Period 2</th>
+            <th>Period 3</th>
+            <th>Period 4</th>
+            <th>Period 5</th>
+            <th>Period 6</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Faculty timetable data here -->
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- JS -->
+  <script>
+    // Sample data: Replace with admin-generated LocalStorage or database
+    const studentTimetables = JSON.parse(localStorage.getItem('studentTimetable')) || [
+      {class:"CSE-A", day:"Monday", P1:"Math", P2:"Physics", P3:"CS", P4:"Lab", P5:"English", P6:"Elective"},
+      {class:"CSE-B", day:"Monday", P1:"Math", P2:"Physics", P3:"DS", P4:"Lab", P5:"English", P6:"Elective"}
+    ];
+
+    const facultyTimetables = JSON.parse(localStorage.getItem('facultyTimetable')) || [
+      {name:"Dr. Smith", dept:"CSE", day:"Monday", P1:"Math", P2:"Math", P3:"CS", P4:"Lab", P5:"Free", P6:"Elective"},
+      {name:"Dr. Jones", dept:"CSE", day:"Monday", P1:"Physics", P2:"Physics", P3:"DS", P4:"Lab", P5:"Free", P6:"Elective"}
+    ];
+
+    function renderTimetables(){
+      const studentBody = document.querySelector('#studentTimetable tbody');
+      studentBody.innerHTML = studentTimetables.map(s => `
+        <tr>
+          <td>${s.class}</td>
+          <td>${s.day}</td>
+          <td>${s.P1}</td>
+          <td>${s.P2}</td>
+          <td>${s.P3}</td>
+          <td>${s.P4}</td>
+          <td>${s.P5}</td>
+          <td>${s.P6}</td>
+        </tr>
+      `).join('');
+
+      const facultyBody = document.querySelector('#facultyTimetable tbody');
+      facultyBody.innerHTML = facultyTimetables.map(f => `
+        <tr>
+          <td>${f.name}</td>
+          <td>${f.dept}</td>
+          <td>${f.day}</td>
+          <td>${f.P1}</td>
+          <td>${f.P2}</td>
+          <td>${f.P3}</td>
+          <td>${f.P4}</td>
+          <td>${f.P5}</td>
+          <td>${f.P6}</td>
+        </tr>
+      `).join('');
+    }
+
+    window.onload = renderTimetables;
+
+    function logout(){ window.location.href="college.html"; }
+  </script>
+
+</body>
+</html>

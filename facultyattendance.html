@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Attendance</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="facultyattendance.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">MyCollege</h2>
+    <nav>
+      <a href="facultydashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="facultyattendance.html" class="active"><span class="material-icons">event_note</span> Attendance</a>
+      <a href="facultysettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>📘 Faculty – Student Attendance Management</h1>
+    </header>
+
+    <section class="attendance-container">
+      <!-- Class & Subject Selection -->
+      <div class="card">
+        <h3><span class="material-icons">school</span> Select Class & Subject</h3>
+        <form id="classForm" class="filter-form">
+          <select id="classSelect" required>
+            <option value="">-- Select Class --</option>
+            <option value="CSE-A">CSE - A</option>
+            <option value="CSE-B">CSE - B</option>
+          </select>
+          <select id="subjectSelect" required>
+            <option value="">-- Select Subject --</option>
+            <option value="Maths">Maths</option>
+            <option value="Networks">Networks</option>
+            <option value="Cyber Security">Cyber Security</option>
+            <option value="Database">Database</option>
+          </select>
+          <button type="submit" class="filter-btn">Load Students</button>
+        </form>
+      </div>
+
+      <!-- Student List for Attendance -->
+      <div class="card" id="studentAttendanceCard" style="display:none;">
+        <h3><span class="material-icons">check_circle</span> Mark Attendance</h3>
+        <form id="attendanceForm">
+          <table>
+            <thead>
+              <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="studentList"></tbody>
+          </table>
+          <button type="submit" class="save-btn">💾 Save Attendance</button>
+        </form>
+      </div>
+
+      <!-- Previous Records -->
+      <div class="card" id="previousRecordsCard" style="display:none;">
+        <h3><span class="material-icons">history</span> Previous Attendance Records</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="previousRecords"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function logout() {
+      window.location.href = "college.html";
+    }
+
+    // Example student data
+    const students = {
+      "CSE-A": [
+        { roll: "101", name: "Aarav Sharma" },
+        { roll: "102", name: "Sneha Patel" },
+        { roll: "103", name: "Rohan Kumar" }
+      ],
+      "CSE-B": [
+        { roll: "201", name: "Priya Verma" },
+        { roll: "202", name: "Aditya Singh" }
+      ]
+    };
+
+    // Example previous records
+    const records = [
+      { date: "21 Sept 2025", roll: "101", name: "Aarav Sharma", subject: "Maths", status: "Present" },
+      { date: "21 Sept 2025", roll: "102", name: "Sneha Patel", subject: "Maths", status: "Absent" }
+    ];
+
+    // Load students on class/subject selection
+    document.getElementById("classForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const selectedClass = document.getElementById("classSelect").value;
+      const subject = document.getElementById("subjectSelect").value;
+
+      if (!selectedClass || !subject) {
+        alert("Please select both class and subject!");
+        return;
+      }
+
+      // Populate student table
+      const studentList = document.getElementById("studentList");
+      studentList.innerHTML = "";
+      students[selectedClass].forEach(stu => {
+        studentList.innerHTML += `
+          <tr>
+            <td>${stu.roll}</td>
+            <td>${stu.name}</td>
+            <td>
+              <select>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+              </select>
+            </td>
+          </tr>
+        `;
+      });
+
+      // Show sections
+      document.getElementById("studentAttendanceCard").style.display = "block";
+      document.getElementById("previousRecordsCard").style.display = "block";
+
+      // Populate previous records
+      const prev = document.getElementById("previousRecords");
+      prev.innerHTML = "";
+      records
+        .filter(r => r.subject === subject)
+        .forEach(r => {
+          prev.innerHTML += `
+            <tr>
+              <td>${r.date}</td>
+              <td>${r.roll}</td>
+              <td>${r.name}</td>
+              <td>${r.subject}</td>
+              <td class="${r.status === 'Present' ? 'present':'absent'}">${r.status}</td>
+              <td><a href="edit-attendance.html?roll=${r.roll}&date=${r.date}&subject=${r.subject}" class="edit-btn">Edit</a></td>
+            </tr>
+          `;
+        });
+    });
+
+    // Save attendance
+    document.getElementById("attendanceForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Attendance saved successfully!");
+    });
+  </script>
+</body>
+</html>

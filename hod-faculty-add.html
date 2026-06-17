@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Faculty Data Management</title>
+  <link rel="stylesheet" href="hod-faculty.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">HOD</h2>
+    <nav>
+      <a href="hoddashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="hod-faculty-add.html" class="active"><span class="material-icons">person_add</span> Add Faculty</a>
+      <a href="hod-faculty-view.html"><span class="material-icons">people</span> View Faculty</a>
+      <a href="hodprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="hodsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>➕ Add Faculty</h1>
+    </header>
+
+    <section class="card">
+      <h3><span class="material-icons">person_add</span> Faculty Details</h3>
+      <form id="facultyForm" class="form-inline">
+        <input type="text" id="facultyName" placeholder="Faculty Name" required>
+        <input type="text" id="facultyDept" placeholder="Department" required>
+        <input type="text" id="facultyEmail" placeholder="Email" required>
+        <input type="tel" id="facultyPhone" placeholder="Phone Number" required>
+        <input type="text" id="facultySubject" placeholder="Subject(s) Taught" required>
+        <button type="button" onclick="addFaculty()">Add Faculty</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    function addFaculty(){
+      const faculty = {
+        name: document.getElementById("facultyName").value,
+        dept: document.getElementById("facultyDept").value,
+        email: document.getElementById("facultyEmail").value,
+        phone: document.getElementById("facultyPhone").value,
+        subject: document.getElementById("facultySubject").value
+      };
+
+      if(!faculty.name || !faculty.dept) { alert("Faculty Name & Department required!"); return; }
+
+      let facultyList = JSON.parse(localStorage.getItem("faculty")) || [];
+      facultyList.push(faculty);
+      localStorage.setItem("faculty", JSON.stringify(facultyList));
+
+      alert("Faculty added successfully!");
+      document.getElementById("facultyForm").reset();
+    }
+
+    function logout(){ window.location.href="college.html"; }
+  </script>
+
+</body>
+</html>

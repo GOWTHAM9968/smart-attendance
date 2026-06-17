@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Faculty Data View</title>
+  <link rel="stylesheet" href="hod-faculty.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">HOD</h2>
+    <nav>
+      <a href="hoddashboard.html"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="hod-faculty-add.html"><span class="material-icons">person_add</span> Add Faculty</a>
+      <a href="hod-faculty-view.html" class="active"><span class="material-icons">people</span> View Faculty</a>
+      <a href="hodprofile.html"><span class="material-icons">person</span> Profile</a>
+      <a href="hodsettings.html"><span class="material-icons">settings</span> Settings</a>
+      <button class="logout-btn" onclick="logout()">
+        <span class="material-icons">logout</span> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>👨‍🏫 View Faculty</h1>
+    </header>
+
+    <section class="card">
+      <h3><span class="material-icons">people</span> Faculty List</h3>
+      <button onclick="downloadCSV()" style="margin-bottom:10px;">📥 Download CSV</button>
+      <div class="table-wrapper">
+        <table id="facultyTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Subjects Taught</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Faculty data populated here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function renderFaculty(){
+      const facultyList = JSON.parse(localStorage.getItem("faculty")) || [];
+      const tbody = document.querySelector('#facultyTable tbody');
+      tbody.innerHTML = facultyList.map(f => `
+        <tr>
+          <td>${f.name}</td>
+          <td>${f.dept}</td>
+          <td>${f.email}</td>
+          <td>${f.phone}</td>
+          <td>${f.subject}</td>
+        </tr>
+      `).join('');
+    }
+
+    function downloadCSV(){
+      const facultyList = JSON.parse(localStorage.getItem("faculty")) || [];
+      if(facultyList.length === 0){ alert("No faculty to download!"); return; }
+
+      const header = ["Name","Department","Email","Phone","Subjects Taught"];
+      const rows = facultyList.map(f => [f.name,f.dept,f.email,f.phone,f.subject]);
+      let csvContent = "data:text/csv;charset=utf-8," 
+        + [header.join(","), ...rows.map(r=>r.join(","))].join("\n");
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "faculty.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    window.onload = renderFaculty;
+    function logout(){ window.location.href="college.html"; }
+  </script>
+
+</body>
+</html>
