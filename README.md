@@ -64,7 +64,7 @@ Smart Attendance Management System is an AI-powered attendance tracking platform
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/smart-attendance-system.git
+git clone https://github.com/gowtham9968/smart-attendance-system.git
 cd smart-attendance-system
 pip install -r requirements.txt
 python app.py
